@@ -65,3 +65,33 @@
 
 (setq custom-file "~/.emacs.d/custom.el")
 (load custom-file 'noerror)
+
+;; Remove completion buffer when done
+(add-hook 'minibuffer-exit-hook 
+      '(lambda ()
+         (let ((buffer "*Completions*"))
+           (and (get-buffer buffer)
+            (kill-buffer buffer)))))
+
+;; Hooks:
+
+(dolist (hook '(text-mode-hook))
+  (add-hook hook (lambda () (flyspell-mode 1) (auto-fill-mode 1))))
+
+(dolist (hook '(tex-mode-hook))
+  (add-hook hook (lambda () (flyspell-mode 1) (auto-fill-mode 1))))
+
+(dolist (hook '(latex-mode-hook))
+  (add-hook hook (lambda () (flyspell-mode 1) (auto-fill-mode 1))))
+
+
+;; flyspell-stuff:
+
+(defun fd-switch-dictionary()
+  (interactive)
+  (let* ((dic ispell-current-dictionary)
+         (change (if (string= dic "deutsch8") "english" "deutsch8")))
+    (ispell-change-dictionary change)
+    (message "Dictionary switched from %s to %s" dic change)))
+
+(global-set-key (kbd "<f8>")   'fd-switch-dictionary)
