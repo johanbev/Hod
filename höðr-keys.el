@@ -44,6 +44,8 @@
 (global-set-key  [M-mouse-5] 'previous-buffer)
 (global-set-key  [M-mouse-4] 'next-buffer)
 
+(global-set-key (kbd "C-x C-k") 'kill-this-buffer)
+
 
 ;; Some important commands have very long names, we can use alias to help us out:
 
@@ -51,3 +53,37 @@
 (defalias 'llm 'long-lines-mode)
 (defalias 'afm 'auto-fill-mode)
 (defalias 'mmm 'magit-status)
+
+
+;; We use keys on hyper to navigate between windows on hyperspeed:
+
+(defun swap-with (dir)
+  (interactive)
+  (let ((other-window (windmove-find-other-window dir)))
+    (when other-window
+      (let* ((this-window (selected-window))
+             (this-buffer (window-buffer this-window))
+             (other-buffer (window-buffer other-window))
+             (this-start (window-start this-window))
+             (other-start (window-start other-window)))
+        (set-window-buffer this-window other-buffer)
+        (set-window-buffer other-window this-buffer)
+        (set-window-start this-window other-start)
+        (set-window-start other-window this-start)))))
+
+(global-set-key (kbd "H-J") (lambda () (interactive) (swap-with 'down)))3
+(global-set-key (kbd "H-K") (lambda () (interactive) (swap-with 'up)))
+(global-set-key (kbd "H-H") (lambda () (interactive) (swap-with 'left)))
+(global-set-key (kbd "H-L") (lambda () (interactive) (swap-with 'right)))
+
+(global-set-key (kbd "H-f") 'other-window)
+
+(global-set-key (kbd "H-j") 'windmove-down)
+(global-set-key (kbd "H-k") 'windmove-up)
+(global-set-key (kbd "H-h") 'windmove-left)
+(global-set-key (kbd "H-l") 'windmove-right)
+
+(global-set-key (kbd "H-c") 'delete-window)
+(global-set-key (kbd "H-C") 'kill-buffer-and-window)
+(global-set-key (kbd "H-d") 'delete-completion-window)
+
