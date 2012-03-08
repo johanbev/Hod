@@ -1,0 +1,6 @@
+to install Höðr just put
+
+(add-to-list 'load-path "~/höðr/") ; or your path to höðr
+(load-library "höðr")
+
+to your .emacs  and tar -xf höðr/packages.tgz
