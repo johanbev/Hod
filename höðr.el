@@ -71,7 +71,7 @@
 (setq inferior-lisp-program "/usr/bin/sbcl")
 (höðr:add-load-path "slime")
 (require 'slime)
-(slime-setup '(slime-fancy slime-js))
+(slime-setup '(slime-fancy ))
 
 ;;; Templates
 
