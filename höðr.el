@@ -1,14 +1,14 @@
 ;; -*- coding: utf-8 -*-
 ;;
-;; Höðr 0.1 
+;; Höðr 0.2
 ;;
 ;; This is Höðr, a collection of emacs settings and add-on packages.
 ;;
-;; Copyright (C) 2011 by Johan Benum Evensberget <johanbev@ifi.uio.no>
+;; Copyright (C) 2011-2012 by Johan Benum Evensberget <johan.benum@gmail.com>
 ;;
+;; No rights reserved.
 
-
-(defvar höðr:version 0.1.1)
+(defvar höðr:version 0.2)
 
 (defvar höðr:root "~/höðr")
 
@@ -29,7 +29,7 @@
 (load-library "höðr-keys") ; load global keybindings
 (load-library "höðr-completion") ; load completion/expanding
 
-;; We use color theme to manage colors.
+;; We use color theme to manage colors. To be changed in 24.
 
 (progn
   (höðr:add-load-path "color-theme")
@@ -40,24 +40,38 @@
 ;; loaded, we start loading up any additional packages.
 
 
-; slime magit yas templates fastnav
+;; We now have ELPA to help us out with many of these packages:
 
-;;; Slime:
+(when
+    (load
+     (expand-file-name "~/.emacs.d/elpa/package.el"))
+  (package-initialize))
+
+(defun höðr:install-elpas ()
+  (interactive)
+  (when (y-or-n-p "Install magit? ")
+    (package-install 'magit))
+  (when (y-or-n-p "Install yasnippet? ")
+    (package-install 'yasnippet-bundle))
+  (when (y-or-n-p "Install js2-mode? ")
+    (package-install 'js2-mode))
+  (when (y-or-n-p "Install json? ")
+    (package-install 'json))
+  (when (y-or-n-p "Install nxml? ")
+    (package-install 'nxml)))
+
+;; Some small els are nice but not in elpa yet:
+
+(höðr:add-load-path "misc")
+(load-library "csharp-mode")
+
+
+;;; Slime (elpa has slime but it's age old)
 
 (setq inferior-lisp-program "/usr/bin/sbcl")
 (höðr:add-load-path "slime")
 (require 'slime)
 (slime-setup '(slime-fancy slime-js))
-
-;;; ELI:
-
-;(höðr:add-load-path "eli")
-;(load-library "fi-site-init")
-
-;;; Magit:
-
-(höðr:add-load-path "magit")
-(load-library "magit")
 
 ;;; Templates
 
@@ -71,6 +85,3 @@
 (load-library "fastnav")
 
 
-;;; These misc packages are loaded upon request
-
-(höðr:add-load-path "misc")
