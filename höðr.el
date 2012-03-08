@@ -8,7 +8,7 @@
 ;;
 
 
-(defvar höðr:version 0.1)
+(defvar höðr:version 0.1.1)
 
 (defvar höðr:root "~/höðr")
 
@@ -25,8 +25,8 @@
 
 ;; First load settings:
 
-(load-library "höðr-keys") ; load global keybindings
 (load-library "höðr-behaviour") ; load global behaviour
+(load-library "höðr-keys") ; load global keybindings
 (load-library "höðr-completion") ; load completion/expanding
 
 ;; We use color theme to manage colors.
@@ -47,7 +47,7 @@
 (setq inferior-lisp-program "/usr/bin/sbcl")
 (höðr:add-load-path "slime")
 (require 'slime)
-(slime-setup '(slime-fancy))
+(slime-setup '(slime-fancy slime-js))
 
 ;;; ELI:
 
@@ -69,3 +69,8 @@
 
 (höðr:add-load-path "fastnav")
 (load-library "fastnav")
+
+
+;;; These misc packages are loaded upon request
+
+(höðr:add-load-path "misc")
