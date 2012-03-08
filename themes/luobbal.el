@@ -85,6 +85,18 @@
      (show-paren-mismatch              ((t (:foreground "#fee6ff"
                                                         :background "#ff3700"))))
 
+
+     (compilation-error ((t (:inherit font-lock-warning-face))))
+     (compilation-info ((t (:inherit org-date))))
+
+     (flymake-errline ((t (:foreground "#fee6ff"
+                                       :background "#ff3700"))))
+     (flymake-warnline ((t (:foreground "#fee6ff"
+                                        :background "#53606e"))))
+
+     (diff-refine-change ((t (:inherit bold :foreground "#8a999e"))))
+     
+
      (diff-file-header                 ((t (:weight bold))))
      (diff-header                      ((t (:background "grey17"))))
      (fixed-pitch                      ((t nil)))
