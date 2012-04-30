@@ -1,0 +1,19 @@
+#! /bin/bash
+
+
+# bashfile for installing deps requiring more than just url-retrieve:
+
+cd ~/.emacs.d/höðr
+mkdir ext
+cd ext
+mkdir color-theme
+cd color-theme
+#wget "http://download.savannah.gnu.org/releases/color-theme/color-theme.el.gz"
+#gunzip color-theme.el.gz
+cd ..
+
+wget "http://common-lisp.net/project/slime/snapshots/slime-current.tgz"
+tar xf slime-current.tgz
+rm slime-current.tgz
+mv slime* slime
+

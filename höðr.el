@@ -10,7 +10,10 @@
 
 (defvar höðr:version 0.2)
 
-(defvar höðr:root "~/höðr")
+
+;; Load ourselves
+
+(defvar höðr:root "~/.emacs.d/höðr")
 
 (add-to-list 'load-path höðr:root)
 
@@ -23,16 +26,21 @@
   (add-to-list 'load-path (höðr:get-path path)))
 
 
+;;; core höðr shoud now have been setup, and we can provide ourselves:
+
+(provide 'höðr)
+
+
 ;; First load settings:
 
 (load-library "höðr-behaviour") ; load global behaviour
 (load-library "höðr-keys") ; load global keybindings
 (load-library "höðr-completion") ; load completion/expanding
 
-;; We use color theme to manage colors. To be changed in 24.
+;; We use color theme to manage colors. To be changed in 24, but we aren't there quite yet
 
 (progn
-  (höðr:add-load-path "color-theme")
+  (höðr:add-load-path "ext/color-theme")
   (load-library "color-theme")
   (load-library "höðr-appearance"))
 
@@ -42,36 +50,25 @@
 
 ;; We now have ELPA to help us out with many of these packages:
 
-(when
-    (load
-     (expand-file-name "~/.emacs.d/elpa/package.el"))
+(when (and (file-exists-p "~/.emacs.d/elpa/package.el")
+           (load
+            (expand-file-name "~/.emacs.d/elpa/package.el")))
   (package-initialize))
 
-(defun höðr:install-elpas ()
-  (interactive)
-  (when (y-or-n-p "Install magit? ")
-    (package-install 'magit))
-  (when (y-or-n-p "Install yasnippet? ")
-    (package-install 'yasnippet-bundle))
-  (when (y-or-n-p "Install js2-mode? ")
-    (package-install 'js2-mode))
-  (when (y-or-n-p "Install json? ")
-    (package-install 'json))
-  (when (y-or-n-p "Install nxml? ")
-    (package-install 'nxml)))
+
 
 ;; Some small els are nice but not in elpa yet:
 
-(höðr:add-load-path "misc")
+(höðr:add-load-path "ext/misc")
 (load-library "csharp-mode")
 
 
 ;;; Slime (elpa has slime but it's age old)
 
 (setq inferior-lisp-program "/usr/bin/sbcl")
-(höðr:add-load-path "slime")
+(höðr:add-load-path "ext/slime")
 (require 'slime)
-(slime-setup '(slime-fancy ))
+(slime-setup '(slime-fancy))
 
 ;;; Templates
 

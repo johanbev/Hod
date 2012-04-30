@@ -15,6 +15,7 @@
 (prefer-coding-system 'utf-8)
 (set-language-environment "UTF-8")
 
+
 ;; Misc. settings:
 
 (setq next-line-add-newlines nil)     ; avoid blank lines at end of file
@@ -60,6 +61,11 @@
 
 (midnight-delay-set 'midnight-delay 0)
 (setq midnight-period 14400) ;; Clean up buffers every 4 hours.
+
+
+;;; for mysterious reasons flymake-mode and flymake-hooks is not loaded anymore
+;;; and lots of elisp breaks. just exercise some flymake so it will be autoloaded
+
 
 ;; Now, custom can be nice, but we don't want it to clutter up .emacs:
 
